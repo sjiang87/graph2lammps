@@ -41,7 +41,7 @@ from graph2lammps.convert import gen_pos, write_pdb, write_lammps
         G.nodes[node]['name'] = string.ascii_uppercase[G.nodes[node]['type'] ] # some random node names
         
     for edge in G.edges():
-        G.edges[edge]['type'] = np.random.randint(1, 2) # bond type 1 or 2
+        G.edges[edge]['type'] = random.randint(1, 2) # bond type 1 or 2
 
     G.graph['mass'] = {1: 1, 2:2} # graph-level metadata, e.g., bead mass, charge
     ```
