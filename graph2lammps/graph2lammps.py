@@ -5,7 +5,7 @@ __email__ = "sj0161@princeton.edu"
 
 """
 This program (and other distributed files) enable the facile
-generation of polymers based on networkx graphs.
+generation of LAMMPS polymer data based on networkx graphs.
 The position function is adapted from Prof. Webb's polymerize.py.
 """
 
