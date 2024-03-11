@@ -31,6 +31,9 @@ from graph2lammps.convert import gen_pos, write_pdb, write_lammps
         return G
 
     G = gen_star(num_arm=5, len_branch=5)
+    mapping = {old_label: new_label for new_label, old_label in enumerate(sorted(G.nodes()))}
+    G = nx.relabel_nodes(G, mapping)
+
     ```
 
 2. Assign properties to each node or edge. This can be done after graph creation or directly in the custom 'gen_star' function.
