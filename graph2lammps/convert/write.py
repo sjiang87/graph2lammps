@@ -28,13 +28,13 @@ def write_lammps(G, pos, fname):
     fid.write(f'{nedges:<6} bonds\n')
     
     # Node/bead/atom types.
-    node_types  = np.array([G.nodes[node].get('type', None) for node in G.nodes()])
+    node_types  = np.array([G.nodes[node].get('type', 1) for node in G.nodes()])
     node_types  = np.unique(node_types)
     nnode_types = len(node_types)
     fid.write(f'{nnode_types} atom types\n')
     
     # Edge/bond types.
-    edge_types  = np.array([G.edges[edge].get('type', None) for edge in G.edges()])
+    edge_types  = np.array([G.edges[edge].get('type', 1) for edge in G.edges()])
     edge_types  = np.unique(edge_types)
     nedge_types = len(edge_types)
     fid.write(f'{nedge_types} bond types\n\n')
@@ -64,7 +64,7 @@ def write_lammps(G, pos, fname):
     fid.write('\n\nBonds\n\n')
     for i, edge in enumerate(G.edges()):
         source, target = edge
-        e_type = G.edges[edge].get('type', None)
+        e_type = G.edges[edge].get('type', 1)
         fid.write(f'{i+1:<4} {e_type:<4} {source+1:<4} {target+1:>4}\n')
         
     # TODO: angle, dihedral

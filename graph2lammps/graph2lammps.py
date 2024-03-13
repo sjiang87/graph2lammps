@@ -48,7 +48,7 @@ def graph2lammps(G, rmin=0.5, bdist=1.0, bmin=0.9, bmax=1.1, niter=1000, fname='
     
     write_lammps(G, 
                  pos, 
-                 name=fname)
+                 fname=fname)
     
     return None
     
