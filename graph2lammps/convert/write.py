@@ -8,14 +8,20 @@ def write_pdb(G, pos, fname):
   
     # WRITE HETATM ENTRIES.
     for i, (node, data) in enumerate(G.nodes(data=True)):
-        fid.write("{:<6s}{:>5d}  {:<3s}{:1s}{:>3s}  {:>4d}{:<1s}   {:>8.3f}{:>8.3f}{:>8.3f}{:>6.2f}{:>6.2f}      {:>4s} {:<s}\n".\
-                format("ATOM", data["type"], data["name"], " ", "UNL", i+1, " ", \
-                pos[i, 0], pos[i, 1], pos[i, 2], 1.00, 0.00, "", data["name"]))
+        if data["type"] == 0:
+            name = 'A'
+        elif data["type"] == 1:
+            name = 'B'
+        else:
+            name = 'X'
+        fid.write("{:<6s}{:>5d}  {:<3s}{:1s}{:>3s}  {:>4d}{:<1s}   {:>8.3f}{:>8.3f}{:>8.3f}{:>6.2f}{:>6.2f}      {:>4s}\n".\
+                format("ATOM", i+1, name, " ", "UNL", data["type"], " ", \
+                pos[i, 0], pos[i, 1], pos[i, 2], 1.00, 0.00, ""))
         
     # WRITE CONECT ENTRIES.
     for edge in G.edges():
         source, target = edge
-        fid.write("CONECT {:>5d} {:>5d}\n".format(source+1, target+1))
+        fid.write("CONECT {:>4d} {:>4d}\n".format(source+1, target+1))
         
         
 def write_lammps(G, pos, fname):

@@ -52,6 +52,7 @@ def gen_pos(G, rmin, bdist, bmin, bmax, niter):
     angled = np.matmul(adj, adj) > 0
     
     for step in range(niter):
+        print(pos[0])
         r    = pos[:, np.newaxis, :] - pos[np.newaxis, :, :]
         dist = np.sqrt(np.sum(r ** 2, axis=-1))
         
@@ -80,10 +81,13 @@ def gen_pos(G, rmin, bdist, bmin, bmax, niter):
         small_overlap = dist < rcut
         small_overlap[bonded] = False
         small_overlap[np.diag_indices(N)] = False
-        fmag[small_overlap] = 0.5 * np.sin(np.pi * dist[small_overlap] / rcut) / rcut / dist[small_overlap]
+        
+        scale = 0.1
+            
+        fmag[small_overlap] = scale * np.sin(np.pi * dist[small_overlap] / rcut) / rcut / dist[small_overlap]
         
         # Compute all bonded forces using a harmonic potential Uij = K(d-d0)^2
-        fmag[bonded] = - 0.5 * (dist[bonded] - bdist) / dist[bonded]
+        fmag[bonded] = - scale * (dist[bonded] - bdist) / dist[bonded]
         
         # TODO: Angle force
         
